@@ -24,6 +24,7 @@ public class ConexionBDD {
             
             // 2. Establecer la conexión
             conn = DriverManager.getConnection(URL, USER, PASS);
+            System.out.println("conectado");
             
         } catch (ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, "❌ ERROR: Driver MySQL no encontrado. Verifique el POM o las Librerías.");
