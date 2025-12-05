@@ -5,29 +5,19 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConexionBD {
-    // Credenciales: cooperativa1 y 12345678
-    private static final String URL = "jdbc:mysql://localhost:3306/cooperativa1?serverTimezone=UTC";
+    
+    // ... Asegúrate de que los parámetros de URL, USER y PASSWORD estén correctos ...
+    private static final String URL = "jdbc:mysql://localhost:3306/cooperativa1?useSSL=false&serverTimezone=UTC"; 
     private static final String USER = "root"; 
-    private static final String PASS = "12345678";
+    private static final String PASSWORD = "12345678"; // ⚠️ ¡Tu Contraseña aquí!
 
-    public static Connection getConexion() {
-        Connection connection = null;
+    public static Connection getConexion() throws SQLException {
         try {
-            connection = DriverManager.getConnection(URL, USER, PASS);
-        } catch (SQLException e) {
-            System.err.println("Error al conectar a la base de datos: " + e.getMessage());
-            // En un entorno real, aquí lanzarías una excepción de negocio.
-        }
-        return connection;
-    }
-
-    public static void closeConexion(Connection conn) {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                System.err.println("Error al cerrar la conexión: " + e.getMessage());
-            }
+            Class.forName("com.mysql.cj.jdbc.Driver"); // Driver moderno
+            return DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (ClassNotFoundException e) {
+            System.err.println("Error: No se encontró el driver JDBC. Asegúrate de incluir la librería Connector/J.");
+            throw new SQLException("Driver de BD no encontrado.", e);
         }
     }
 }

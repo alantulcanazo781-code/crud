@@ -1,18 +1,23 @@
-package com.mycompany.crud; // El nombre de tu paquete principal
+package com.mycompany.crud;
 
-import vista.UsuarioVista; // Nota: el paquete de la vista está en minúsculas
+import controlador.ControladorUsuario;
+import modelo.Usuario;
+import vista.UsuarioVista;
 
-import javax.swing.SwingUtilities;
-
-public class Crud { // Tu clase principal
-    /**
-     * El método principal que inicia la aplicación de escritorio.
-     * @param args
-     */
+public class Crud {
+    
     public static void main(String[] args) {
-        // Asegura que la GUI se ejecute de forma segura en el hilo de Swing.
-        SwingUtilities.invokeLater(() -> {
-            new UsuarioVista().setVisible(true);
-        });
+        
+        // 1. Crear la instancia del Modelo
+        Usuario modeloUsuario = new Usuario();
+        
+        // 2. Crear la instancia de la Vista
+        UsuarioVista vistaUsuario = new UsuarioVista();
+        
+        // 3. Crear el Controlador, inyectando la Vista y el Modelo
+        ControladorUsuario controlador = new ControladorUsuario(vistaUsuario, modeloUsuario);
+        
+        // 4. Iniciar la aplicación
+        controlador.iniciar();
     }
 }
